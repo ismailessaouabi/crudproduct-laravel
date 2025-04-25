@@ -16,6 +16,14 @@ class ProductController extends Controller
         $products = Product::with('category')->get();
         return view('products.index', compact('products'));
     }
+    /**
+     * Display the welcome page with all products.
+     */
+    public function welcome()
+    {
+        $products = Product::all();
+        return view('welcome', compact('products'));
+    }
 
     /**
      * Show the form for creating a new resource.

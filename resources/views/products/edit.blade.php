@@ -1,46 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Modifier un produit</h1>
-    
-    <a href="{{ route('products.index') }}" class="btn btn-primary mb-3">Retour</a>
-    
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-    
-    <form action="{{ route('products.update', $product->id) }}" method="POST">
+    <h1>Modifier le Produit</h1>
+
+    <form action="{{ route('products.update', $product) }}" method="POST">
         @csrf
         @method('PUT')
-        
-        <div class="form-group mb-3">
-            <label for="name">Nom:</label>
-            <input type="text" name="name" value="{{ $product->name }}" class="form-control" placeholder="Nom du produit">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required>
         </div>
-        
-        <div class="form-group mb-3">
-            <label for="description">Description:</label>
-            <textarea class="form-control" name="description" rows="3" placeholder="Description">{{ $product->description }}</textarea>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3">{{ $product->description }}</textarea>
         </div>
-        
-        <div class="form-group mb-3">
-            <label for="price">Prix:</label>
-            <input type="number" name="price" value="{{ $product->price }}" class="form-control" placeholder="Prix" step="0.01">
+        <div class="mb-3">
+            <label for="price" class="form-label">Prix</label>
+            <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ $product->price }}" required>
         </div>
-        
-        <div class="form-group mb-3">
-            <label for="stock">Stock:</label>
-            <input type="number" name="stock" value="{{ $product->stock }}" class="form-control" placeholder="Quantité en stock">
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantité</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" value="{{ $product->quantity }}" required>
         </div>
-        
-        <button type="submit" class="btn btn-success">Mettre à jour</button>
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Catégorie</label>
+            <select class="form-select" id="category_id" name="category_id" required>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+        <a href="{{ route('products.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
-</div>
 @endsection
