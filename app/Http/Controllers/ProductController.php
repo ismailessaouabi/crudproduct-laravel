@@ -13,6 +13,12 @@ class ProductController extends Controller
          $products = Product::all();
          return view('products.index', compact('products'));
      }
+    // Afficher la page d'accueil avec les produits
+     public function welcome()
+     {
+         $products = Product::all();
+         return view('welcome', compact('products'));
+     }
  
      // Afficher le formulaire de création
      public function create()
