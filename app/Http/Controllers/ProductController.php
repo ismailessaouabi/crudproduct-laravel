@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function welcome()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
         return view('welcome', compact('products'));
     }
 
